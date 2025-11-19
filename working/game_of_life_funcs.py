@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import IPython.display as display
-from matplotlib.lines import Line2D
+import matplotlib.colors as mcolors
 
 """I wrote all of the functions here to then import them on my notebooks and use them"""
 
@@ -69,17 +69,23 @@ def play_life_game_wplots(grid, n_iterations):
     """Here we can play the game of life as the previous function but we can visualize it graphically using matplotlib animation"""
     i=int(0)
 
-    fig, ax = plt.subplots(figsize = (8,8))
+    fig, ax = plt.subplots(figsize = (5,5))
     fig.suptitle(r"Conway's game of life")
+    ax.grid(False)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    fig.tight_layout()
+
+    my_cmap = mcolors.ListedColormap(["lightcyan", "darkcyan"])
 
     #give it the initial image and then append the others
-    initial_image = ax.imshow(grid, cmap = "binary", animated = True)
+    initial_image = ax.imshow(grid, cmap = my_cmap, animated = True)
     artists = [[initial_image]] 
 
 
     for i in range(1, n_iterations + 1):
         grid = life_game(grid)
-        newim = ax.imshow(grid, cmap = "binary", animated = True)
+        newim = ax.imshow(grid, cmap = my_cmap, animated = True)
         artists.append([newim])
 
     
@@ -87,4 +93,5 @@ def play_life_game_wplots(grid, n_iterations):
     video = ani.to_html5_video()
     html = display.HTML(video)
     display.display(html)
-    plt.close()
+    plt.close(fig)
+
