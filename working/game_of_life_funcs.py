@@ -31,7 +31,7 @@ def life_game(grid):
     diag_ru_neighbours = np.vstack(( aux0_gridsize, np.column_stack(( aux0_gridsize_minus1, grid[:-1,:-1] )) ))
     diag_lu_neighbours = np.column_stack(( np.vstack(( aux0_gridsize_minus1, grid[:-1,1:] )), aux0_gridsize ))
     
-    #now all 8 of the neighbouring matrices are compurted, all there is left to do is to sum them and then either kill or mantain the cell
+    #now all 8 of the neighbouring matrices are computed, all there is left to do is to sum them and then either kill or mantain the cell
     #which, in the original grid, corresponds to that position in the neighbour_sum matrix
     neighbour_sum = rhs_neighbours + lhs_neighbours + down_neighbours + up_neighbours + diag_ld_neighbours 
     + diag_lu_neighbours + diag_rd_neighbours + diag_ru_neighbours
