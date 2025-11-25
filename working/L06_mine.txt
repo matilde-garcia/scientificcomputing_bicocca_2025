@@ -1,0 +1,3 @@
+Q1. This would have to be done in the future anyways, but I created a repository for the pyEFPE project called ecc_project_repo, which I edit locally on my machine
+and similarly cloned it into the cluster nodes so I can run some heavier scripts there. I added my suprevisor (professor Davide Gerosa) as a collaborator. 
+
