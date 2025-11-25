@@ -2,4 +2,4 @@ Q1. This would have to be done in the future anyways, but I created a repository
 and similarly cloned it into the cluster nodes so I can run some heavier scripts there. I added my suprevisor (professor Davide Gerosa) as a collaborator. 
 (This question kind of works on teo levels because I do it for the course but I would have had to do it anyways.)
 
-Q2.
+Q3. I forked Davide's repository writeapaper and started writing my first paper in a repository called ecc_project_paper. Made some changed just to test it's working. Also invited Davide to be a collaborator (once again, somethign I would have to do in the future anyways but at least it's out of the way)
