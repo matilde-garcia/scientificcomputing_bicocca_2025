@@ -37,14 +37,14 @@ def life_game(grid):
     + diag_lu_neighbours + diag_rd_neighbours + diag_ru_neighbours
 
     #check the rules are respected
-    two_or3_neighbours = np.logical_or(neighbour_sum == 2, neighbour_sum ==3)
+    kill_live_cell = np.logical_or(neighbour_sum < 2, neighbour_sum >=3)
     exactly3_neighbours = neighbour_sum==3
     live_cells = grid==1
 
     #either kill a cell or make it alive in a new grid
     new_grid = grid.copy()
     #if it's alive and it doesnt have 2 or 3 (less than two or more than three), it becomes dead
-    cells_to_kill = np.logical_and(live_cells == True, two_or3_neighbours == False)
+    cells_to_kill = np.logical_and(live_cells == True, kill_live_cell == True)
     new_grid[cells_to_kill==True] = 0
     #if it's dead and has exactly 3 live neighbours, it becomes alive
     cells_to_become_alive = np.logical_and(live_cells == False, exactly3_neighbours == True)
