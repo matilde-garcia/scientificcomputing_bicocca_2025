@@ -1,1 +1,0 @@
-from .game_of_life_funcs import *
