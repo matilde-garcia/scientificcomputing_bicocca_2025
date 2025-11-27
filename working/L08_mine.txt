@@ -1,0 +1,2 @@
+Q1. created a module containing the functions I wrote to play the Game of Life. Available at https://github.com/matilde-garcia/GameofLife 
+as well as instructions for pip installing.
