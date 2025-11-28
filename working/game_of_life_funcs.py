@@ -58,11 +58,15 @@ def play_life_game(grid, n_iterations):
     we want the game to go on for. The 2D arrays are printed as we go."""
     i=int(1)
     print("initial state: \n", grid)
+
+    grid_list = [grid]
     while i<=n_iterations:
         grid = life_game(grid)
+        grid_list.append(grid)
         print("i =", i, ",\n", grid)
         i+=1
 
+    return grid_list
 
 
 def play_life_game_wplots(grid, n_iterations):
@@ -88,10 +92,9 @@ def play_life_game_wplots(grid, n_iterations):
         newim = ax.imshow(grid, cmap = my_cmap, animated = True)
         artists.append([newim])
 
-    
     ani = animation.ArtistAnimation(fig, artists, interval=50)
-    video = ani.to_html5_video()
-    html = display.HTML(video)
-    display.display(html)
-    plt.close(fig)
+    return ani
+
+#To see the dynamical plot in your code, simply save the return of this function, as such:
+#ani.save( "/home/matildeg02/GameofLife/tests/life_game.mp4", writer="ffmpeg", fps=20)
 
