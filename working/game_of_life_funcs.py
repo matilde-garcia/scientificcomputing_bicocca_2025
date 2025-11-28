@@ -93,6 +93,7 @@ def play_life_game_wplots(grid, n_iterations):
         artists.append([newim])
 
     ani = animation.ArtistAnimation(fig, artists, interval=50)
+    plt.close()
     return ani
 
 #To see the dynamical plot in your code, simply save the return of this function, as such:
