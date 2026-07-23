@@ -4,37 +4,31 @@ import matplotlib.animation as animation
 import IPython.display as display
 import matplotlib.colors as mcolors
 
-"""I wrote all of the functions here to then import them on my notebooks and use them"""
 
 def life_game(grid):
 
-    """Here we compute grids with the same size as the original one, each of them contaning, respectively, right hand side neighbours, 
-    left hand side neighbours, up and down neighbours, and neighbours along all 4 diagonals (left down, right down, left up, right up). 
-    This is simply done by removing one of the rows and/or columns, shifting the cropped matrix, and then filling the remaining rows 
-    and/or columns with zeros. We then just sum them all and, for example, position (1,1) of this matrix will be a number from 1-8 
-    representing the sum of all of the number surrounding it in the original grid."""
+    """
+    Here we compute grids with the same size as the original one, each of them contaning, respectively, north, south, west, east and then all the diagonal neighbours. 
+    This is simply done by rolling the matrix in one direction, in a way that the element/ row/ column that gets pushed over the edge, introduces itself on the opposite edge, so the game should go on for longer because edge cells are not considered dead.
+    We sum all of the rolled matrices and check if any of the elemnts opf the matrix are less than 2 or more than 3, and then kill/reproduce cells in the original grid accordingly."""
 
-    #We will have to fill matrixes with rows of zero so we mightt as well create them now to help;
-    #We need 1d arrays with the length oif the original grid and some with the length of the original grid minus one (for the diagonals)
-    aux0_gridsize = np.zeros(np.size(grid[:,0]), dtype= int)
-    aux0_gridsize_minus1 = np.zeros(np.size(grid[1:,0]), dtype= int)
-    
-    #now compute the neighbouring matrices (left and right hand side, up and down)
-    rhs_neighbours = np.column_stack(( grid[:,1:], aux0_gridsize ))
-    lhs_neighbours = np.column_stack( (aux0_gridsize, grid[:,:-1] ))
-    down_neighbours = np.vstack(( grid[1:,:], aux0_gridsize ))
-    up_neighbours = np.vstack(( aux0_gridsize, grid[:-1,:] ))
+    # Treat the grid as a torus: cells on one edge see the opposite edge as their neighbour.
+    # This avoids boundary cells dying just because the board ends.
+    grid = np.asarray(grid, dtype=int)
 
-    #diagonal neighbours
-    diag_rd_neighbours = np.vstack(( np.column_stack(( grid[1:,1:], aux0_gridsize_minus1 )), aux0_gridsize ))
-    diag_ld_neighbours = np.column_stack(( aux0_gridsize, np.vstack(( grid[1:,:-1], aux0_gridsize_minus1 )) ))
-    diag_ru_neighbours = np.vstack(( aux0_gridsize, np.column_stack(( aux0_gridsize_minus1, grid[:-1,:-1] )) ))
-    diag_lu_neighbours = np.column_stack(( np.vstack(( aux0_gridsize_minus1, grid[:-1,1:] )), aux0_gridsize ))
-    
-    #now all 8 of the neighbouring matrices are computed, all there is left to do is to sum them and then either kill or mantain the cell
-    #which, in the original grid, corresponds to that position in the neighbour_sum matrix
-    neighbour_sum = rhs_neighbours + lhs_neighbours + down_neighbours + up_neighbours + diag_ld_neighbours 
-    + diag_lu_neighbours + diag_rd_neighbours + diag_ru_neighbours
+    north = np.roll(grid, 1, axis=0)
+    south = np.roll(grid, -1, axis=0)
+    west = np.roll(grid, 1, axis=1)
+    east = np.roll(grid, -1, axis=1)
+    north_west = np.roll(north, 1, axis=1)
+    north_east = np.roll(north, -1, axis=1)
+    south_west = np.roll(south, 1, axis=1)
+    south_east = np.roll(south, -1, axis=1)
+
+    # Sum all 8 neighbours explicitly. 
+    neighbour_sum = (
+        north + south + west + east + north_west + north_east + south_west + south_east
+    )
 
     #check the rules are respected
     kill_live_cell = np.logical_or(neighbour_sum < 2, neighbour_sum >3)
@@ -93,9 +87,9 @@ def play_life_game_wplots(grid, n_iterations):
         artists.append([newim])
 
     ani = animation.ArtistAnimation(fig, artists, interval=50)
-    plt.close()
+    plt.close(fig)
     return ani
 
 #To see the dynamical plot in your code, simply save the return of this function, as such:
-#ani.save( "/home/matildeg02/GameofLife/tests/life_game.mp4", writer="ffmpeg", fps=20)
+#ani.save("life_game.gif", writer="ffmpeg", fps=20)
 
