@@ -1,6 +1,3 @@
-Q1. created a module containing the functions I wrote to play the Game of Life. Available at https://github.com/matilde-garcia/GameofLife 
-as well as instructions for pip installing.
+Q1. created a module containing the functions I wrote to play the Game of Life. Available at https://github.com/matilde-garcia/GameofLife as well as instructions for pip installing.
 
-Q3. This package also offers the option for other contributos to change the code. Upon a certain pull request, the merge with the main
-branch will be approved/denied depending on if the new code passes/fails the tests (available under the /tests directory). This code 
-preforms both unit and regression tests. For the regression tests, the benchmark status of the code is under the folder "benchmark".
+Q2. This package also offers the option for other contributos to change the code. Upon a certain pull request, the merge with the mainbranch will be approved/denied depending on if the new code passes/fails the tests (available under the /tests directory). This code performs both unit and regression tests. For the regression tests, the benchmark status of the code is under the folder "benchmark".
